@@ -1,0 +1,136 @@
+<html>
+  <head>
+    <title>Home Page</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <style>
+      .login-card {
+        width: 400px;
+        margin: 100px auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <img src="static/images/banner.jpg" width="100%" height="10%">
+
+     <!-- ======== Nav section=======-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">XFACE</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/homepage">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/register">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{category}} alert-dismissible" id="success-alert">
+                  {{message}}
+              </div>
+            {% endfor %}
+          {% endif %}
+      {% endwith %}
+    </div>
+
+    <!-- ========= Register form ========= -->
+     <br><br>
+     <div class="container">
+       <div class="card login-card">
+        <div class="card-body">
+          <h5 class="card-title text-center">Register</h5>
+          <form method="POST" action="/register">
+            <div class="mb-0">
+              <label for="fullname" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="fullname" name="fullname" required>
+            </div>
+            <div class="mb-0">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-0">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-0">
+              <label for="fac" class="form-label">Fac</label>
+              <input type="text" class="form-control" id="fac" name="fac" required>
+            </div>
+            <div class="mb-0">
+              <label for="user_type" class="form-label">User Type</label>
+              <select name="user_type" class="form-control" required>
+                <option disabled selected>---SELECT---</option>
+                <option value="superadmin">Superadmin</option>
+                <option value="admin">Admin</option>
+                <option value="client">Client</option>
+              </select>
+            </div>
+            
+            <div class="mb-0">
+              <label for="question" class="form-label">Question</label>
+              <select class="form-control" name="question">
+                <option disabled selected>---SELECT---</option>
+                <option value="color">What is your favourite color?</option>
+                <option value="place">What is your favourite place?</option>
+                <option value="food">Which is your favourite food?</option>
+                <option value="song">Which is your favourite song?</option>
+                <option value="language">Which is your favourite language?</option>
+              </select>
+            </div>
+            <div class="mb-0">
+              <label for="answer" class="form-label">Answer</label>
+              <input type="text" class="form-control" id="answer" name="answer" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary w-100" name="register">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+           
+
+
+    <!-- ======== Footer section=======-->
+
+    <footer class="footer fixed-bottom bg-primary ">
+      <div class="container text-center py-3">
+          <span class="text-white">
+              Copyright @ CoE-AI 2024.
+          </span>
+      </div>
+  </footer>
+
+<!-- Script for auto hide of alert message  after 4 seconds -->
+<script type="text/javascript">
+  setTimeout(() => {
+const box = document.getElementById('success-alert');
+
+// 👇️ removes element from DOM
+box.style.display = 'none';
+
+// 👇️ hides element (still takes up space on page)
+// box.style.visibility = 'hidden';
+}, 4000);     
+</script>
+
+</body>
+</html>

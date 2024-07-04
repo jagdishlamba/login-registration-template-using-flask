@@ -1,0 +1,87 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <style>
+        
+    </style>
+</head>
+<body>
+    <img src="static/images/banner.jpg"  width="100%" height="10%">
+
+    <!-- Nav section -->
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">XFACE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                    </li>
+                </ul>
+                
+                <ul class= "navbar-nav mr-auto mb-2 mb-lg-0">  
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="True">
+                          {{session.get("username").upper()}}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="#">Change password</a></li>
+                          <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                          
+                        </ul>
+                      </li>
+                  
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissible" id="success-alert">
+                    {{message}}
+                </div>
+              {% endfor %}
+            {% endif %}
+        {% endwith %}
+      </div>
+
+      {% block content %}
+      {% endblock %}
+
+    <!-- Footer section -->
+    <footer class="footer fixed-bottom bg-primary">
+        <div class="container text-center py-3">
+            <span class="text-white">
+                Copyright @ CoE-AI 2024. 
+            </span>
+        </div>
+    </footer>
+
+<!-- Script for auto hide of alert message  after 4 seconds -->
+<script type="text/javascript">
+    setTimeout(() => {
+  const box = document.getElementById('success-alert');
+
+  // 👇️ removes element from DOM
+  box.style.display = 'none';
+
+  // 👇️ hides element (still takes up space on page)
+  // box.style.visibility = 'hidden';
+}, 4000);     
+</script>
+
+
+</body>
+</html>
